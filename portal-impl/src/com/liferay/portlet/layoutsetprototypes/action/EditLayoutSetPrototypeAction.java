@@ -70,8 +70,6 @@ public class EditLayoutSetPrototypeAction extends PortletAction {
 
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				hideDefaultSuccessMessage(actionRequest);
-
 				LayoutSetPrototype layoutSetPrototype =
 					updateLayoutSetPrototype(actionRequest);
 
@@ -84,13 +82,6 @@ public class EditLayoutSetPrototypeAction extends PortletAction {
 
 				siteThemeDisplay.setScopeGroupId(
 					layoutSetPrototype.getGroupId());
-
-				PortletURL siteAdministrationURL =
-					PortalUtil.getSiteAdministrationURL(
-						actionResponse, siteThemeDisplay,
-						PortletKeys.SITE_TEMPLATE_SETTINGS);
-
-				redirect = siteAdministrationURL.toString();
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteLayoutSetPrototypes(actionRequest);
