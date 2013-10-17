@@ -29,10 +29,7 @@ import com.liferay.portal.service.LayoutSetPrototypeServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.struts.PortletAction;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PortletKeys;
-import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.sites.util.SitesUtil;
 
 import java.util.Locale;
@@ -41,7 +38,6 @@ import java.util.Map;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -70,18 +66,7 @@ public class EditLayoutSetPrototypeAction extends PortletAction {
 
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				LayoutSetPrototype layoutSetPrototype =
-					updateLayoutSetPrototype(actionRequest);
-
-				ThemeDisplay themeDisplay =
-					(ThemeDisplay)actionRequest.getAttribute(
-						WebKeys.THEME_DISPLAY);
-
-				ThemeDisplay siteThemeDisplay =
-					(ThemeDisplay)themeDisplay.clone();
-
-				siteThemeDisplay.setScopeGroupId(
-					layoutSetPrototype.getGroupId());
+				updateLayoutSetPrototype(actionRequest);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteLayoutSetPrototypes(actionRequest);
@@ -174,7 +159,7 @@ public class EditLayoutSetPrototypeAction extends PortletAction {
 		SitesUtil.setMergeFailCount(layoutSetPrototype, 0);
 	}
 
-	protected LayoutSetPrototype updateLayoutSetPrototype(
+	protected void updateLayoutSetPrototype(
 			ActionRequest actionRequest)
 		throws Exception {
 
@@ -223,7 +208,7 @@ public class EditLayoutSetPrototypeAction extends PortletAction {
 		settingsProperties.setProperty(
 			"customJspServletContextName", customJspServletContextName);
 
-		return LayoutSetPrototypeServiceUtil.updateLayoutSetPrototype(
+		LayoutSetPrototypeServiceUtil.updateLayoutSetPrototype(
 			layoutSetPrototype.getLayoutSetPrototypeId(),
 			settingsProperties.toString());
 	}
